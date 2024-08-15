@@ -1,6 +1,6 @@
 import Link from "next/link";
 import "./globals.css";
-import styles from './Root.module.css';
+import styles from './root.module.css';
 
 export const metadata = {
   title: "bwng0v0",
