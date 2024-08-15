@@ -35,10 +35,6 @@ IntersectionObserver는 비동기적으로 실행되기 때문에 스크롤 이�
 interection observer를 생성한다.
 관찰 대상이 등록되거나 변화가 생기면 callback이 실행되고 옵션을 부여할 수 있다.
 
-```js
-const observer = new IntersectionObserver(callback, options); // 관찰자 초기화(생성)
-observer.observe(element); // 관찰 대상 등록
-```
 
 ### Observer options
 
@@ -57,89 +53,20 @@ observer.observe(element); // 관찰 대상 등록
 
 컴포넌트에서 호출해서 사용할 수 있도록 getIntersectionObserver 함수를 생성해 IntersectionObserver를 생성한다.
 
-```ts:lib/observer.ts
-export const getIntersectionObserver = () => {
-  const observer = new IntersectionObserver( // observer 생성
-    (entries) => { console.log(entries) }, // callback
-    options // options
-  );
-  return observer;
-};
-```
 
 ### observer에 header 등록
 
 useState를 사용해 스크롤에 따른 현재 목차와 header 들을 저장할 state를 선언한다.
 
-```ts:components/Toc.tsx
-import { useState } from 'react';
-
-const Toc = () => {
-  const [currentId, setCurrentId] = useState<string>('');
-  const [headingEls, setHeadingEls] = useState<Element[]>([]);
-  return ...
-}
-
-export default Toc.
-```
 
 useEffect를 사용해 컴포넌트가 처음 렌더되면 header elements를 저장하고 observer 의 인자로 `setCurrentId` 를 넘겨 observer 내에서 현재 목차를 저장하도록 작성할 것이다.
 
 나는 h2, h3만 표시할 것이므로 headingElements 로 h2, h3 만 저장하고, `observer.observe(header)`로 header 를 등록한다.
 
-```ts:components/Toc.tsx
-  useEffect(() => {
-    const observer = getIntersectionObserver(setCurrentId);
-    const headingElements = Array.from(document.querySelectorAll('h2, h3'));
-
-    setHeadingEls(headingElements);
-
-    headingElements.map((header) => {
-      observer.observe(header);
-    });
-  }, []);
-```
-
 ### 스크롤 방향 체크
 
 스크롤 방향을 체크할 변수와 함수를 `getIntersectionObserver` 내에 작성한다.
 
-```ts:lib/observer.ts
-import { Dispatch, SetStateAction } from 'react';
-
-const observerOption = {
-  threshold: 0.4,
-  rootMargin: '-76px 0px 0px 0px',
-};
-
-export const getIntersectionObserver = (setState: Dispatch<SetStateAction<string>>) => {
-  let direction = '';
-  let prevYposition = 0;
-
-  // scroll 방향 check function
-  const checkScrollDirection = (prevY: number) => {
-    if (window.scrollY === 0 && prevY === 0) return;
-    else if (window.scrollY > prevY) direction = 'down';
-    else direction = 'up';
-
-    prevYposition = window.scrollY;
-  };
-
-  // observer
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      checkScrollDirection(prevYposition);
-
-      if ((direction === 'down' && !entry.isIntersecting) ||
-        (direction === 'up' && entry.isIntersecting)) {
-        setState(entry.target.id);
-      }
-    });
-  }, observerOption);
-
-  return observer;
-}
-```
 
 `entry.isIntersecting` 는 요소의 노출 여부를 boolean 타입으로 반환한다.  
 스크롤 방향에 따른 조건부를 작성하고 인자로 전달받은 setState 를 타겟의 id로 저장하여 observer를 return 한다.
@@ -147,15 +74,6 @@ export const getIntersectionObserver = (setState: Dispatch<SetStateAction<string
 ### 옵션 설정
 
 rootMargin 은 header 의 높이 만큼 설정했다.
-
-```js
-const observerOption = {
-  threshold: 0.4,
-  rootMargin: '-76px 0px 0px 0px',
-};
-```
-
-<img src="/posts/created-toc-generator.gif" alt="toc generator" />
 
 이제 Toc 컴포넌트에서 `console.log(currentId)` 를 출력해보면 현재 목차가 출력되는 것을 확인할 수 있다.
 

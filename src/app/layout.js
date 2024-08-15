@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
       <body>
         <nav className={styles.nav}>
         <div className={styles.navleft}><Link href="/"><>bwng0v0</></Link></div>
-        <div className={styles.navright}> <p>GitHub</p> </div>
+        <div className={styles.navright}> <a href='https://github.com/bwng0v0'><p>GitHub</p></a> </div>
         </nav>
         
         <div className={styles.box}>
