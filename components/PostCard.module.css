@@ -1,0 +1,35 @@
+.ContentBox{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 32px;
+    box-sizing: border-box;
+    margin: 12px 0;
+    border-radius: 8px;
+}
+.ContentBox:hover {
+    background: #F7F9FB;
+    transition: opacity .2s ease
+}
+.Left{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.Title{
+    font-weight: 600;
+    font-size: 24px;
+    color: rgb(25, 31, 40);
+}
+.Text{
+    color: #A6A8AB;
+}
+.Date{
+    color: #C1C2C5;
+}
+.Right{
+    width: 8rem;
+    height: 6rem;
+    background-color: gray;
+    border-radius: 5px;
+}
