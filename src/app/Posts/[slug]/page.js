@@ -38,8 +38,8 @@ export default function PostPage(props) {
 
     return (
         <div>
-            <div className="w-full pt-14">
-                <h1 className="text-center mb-3 text-4xl lg:text-5xl leading-tight ">{post.data.title}</h1>
+            <div className="w-full pt-14 pb-14">
+                <h1 className="text-center mb-3 leading-snug text-2xl lg:text-4xl ">{post.data.title}</h1>
                 <p className="text-center">{dayjs(post.data.date).format('YYYY.MM.DD')}</p>
             </div>
 
