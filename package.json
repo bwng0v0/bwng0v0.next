@@ -12,6 +12,7 @@
     "@giscus/react": "^3.0.0",
     "dayjs": "^1.11.12",
     "gray-matter": "^4.0.3",
+    "lucide-react": "^0.427.0",
     "markdown-to-jsx": "^7.4.7",
     "next": "14.2.5",
     "react": "^18",

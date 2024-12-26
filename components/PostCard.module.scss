@@ -1,4 +1,4 @@
-.ContentBox{
+.ContentBox {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -6,28 +6,36 @@
     box-sizing: border-box;
     margin: 12px 0;
     border-radius: 8px;
+    transition: opacity .2s ease;
 }
+
 .ContentBox:hover {
     background: #F7F9FB;
     transition: opacity .2s ease
 }
-.Left{
+
+.Left {
     display: flex;
     flex-direction: column;
     gap: 4px;
 }
-.Title{
+
+.Title {
     font-weight: normal;
     font-size: 24px;
     color: rgb(25, 31, 40);
+    transition: opacity .2s ease
 }
-.Text{
+
+.Text {
     color: #A6A8AB;
 }
-.Date{
+
+.Date {
     color: #C1C2C5;
 }
-.Right{
+
+.Right {
     width: 8rem;
     height: 6rem;
     background-color: gray;
